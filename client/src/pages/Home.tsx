@@ -76,7 +76,7 @@ export default function Home() {
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <div className="h-6 w-6 rounded-full bg-primary/80 glow-effect"></div>
-            <span className="text-primary tracking-wider font-light text-lg">JARVIS</span>
+            <span className="text-primary tracking-wider font-light text-lg">JUANMA</span>
           </div>
           <div className="text-xs text-primary/80 flex items-center">
             <span className="inline-block h-2 w-2 rounded-full bg-primary mr-2 animate-pulse"></span>
@@ -85,57 +85,92 @@ export default function Home() {
         </div>
       </header>
       
-      <main className="flex-grow flex flex-col items-center justify-center relative">
+      <main className="flex-grow flex flex-col items-center justify-center relative bg-black">
         {/* Dark background with grid-like pattern */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+        <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <div className="absolute inset-0 bg-tech-pattern opacity-20"></div>
         
-        {/* Central orb */}
+        {/* Advanced circular interface */}
         <div className="relative z-10 flex flex-col items-center">
-          {/* Outer rings */}
-          <div className="absolute w-[400px] h-[400px] rounded-full border border-primary/20 animate-pulse-slow"></div>
-          <div className="absolute w-[300px] h-[300px] rounded-full border border-primary/30"></div>
-          <div className="absolute w-[200px] h-[200px] rounded-full border border-primary/40"></div>
-          
-          {/* Horizontal scan lines */}
-          <div className="absolute left-[-200px] right-[-200px] flex flex-col space-y-2">
-            <div className="h-px bg-primary/30 w-full transform translate-y-[-100px]"></div>
-            <div className="h-px bg-primary/20 w-full transform translate-y-[-50px]"></div>
+          {/* Horizontal scan lines in background */}
+          <div className="absolute left-[-300px] right-[-300px] flex flex-col space-y-6">
+            <div className="h-px bg-primary/30 w-full transform translate-y-[-120px]"></div>
+            <div className="h-px bg-primary/20 w-full transform translate-y-[-80px]"></div>
             <div className="h-px bg-primary/40 w-full"></div>
-            <div className="h-px bg-primary/20 w-full transform translate-y-[50px]"></div>
-            <div className="h-px bg-primary/30 w-full transform translate-y-[100px]"></div>
-          </div>
-          
-          {/* Status labels */}
-          <div className="absolute right-[-160px] top-0 text-xs text-primary/70">
-            <div>SYS_STATUS: OPTIMAL</div>
-            <div className="mt-1">CONN: SECURE</div>
+            <div className="h-px bg-primary/20 w-full transform translate-y-[80px]"></div>
+            <div className="h-px bg-primary/30 w-full transform translate-y-[120px]"></div>
           </div>
           
           {/* Animated dots */}
-          <div className="absolute left-[-150px] top-[30px]">
+          <div className="absolute left-[-180px] top-[30px]">
             <span className="inline-block h-1 w-1 rounded-full bg-primary/80 animate-ping"></span>
           </div>
-          <div className="absolute right-[-120px] bottom-[50px]">
+          <div className="absolute right-[-190px] bottom-[50px]">
             <span className="inline-block h-1 w-1 rounded-full bg-primary/80 animate-ping delay-75"></span>
           </div>
+          <div className="absolute left-[-220px] bottom-[20px]">
+            <span className="inline-block h-1 w-1 rounded-full bg-primary/60 animate-ping delay-150"></span>
+          </div>
           
-          {/* Central glowing orb */}
-          <div className="w-[150px] h-[150px] rounded-full bg-gradient-to-b from-primary/80 to-primary/40 flex items-center justify-center shadow-[0_0_60px_20px_rgba(0,195,255,0.3)] relative">
-            <div className="absolute inset-0 rounded-full bg-primary/20 animate-pulse"></div>
-            <div className="z-10 text-center max-w-[120px] overflow-hidden text-white text-opacity-90 text-sm">
-              {currentMessage || (isProcessing ? "Processing..." : "Voice assistant ready")}
+          {/* Status labels */}
+          <div className="absolute right-[-180px] top-[-40px] text-xs text-primary/70 font-mono">
+            <div>SYS_STATUS: OPTIMAL</div>
+            <div className="mt-1">AUDIO_PROC: ACTIVE</div>
+            <div className="mt-1">CONN: SECURE</div>
+          </div>
+          
+          <div className="absolute left-[-180px] bottom-[-30px] text-xs text-primary/70 font-mono">
+            <div>SESSION: {Math.floor(Math.random() * 10000).toString().padStart(4, '0')}</div>
+            <div className="mt-1">UPTIME: 00:{Math.floor(Math.random() * 60).toString().padStart(2, '0')}:{Math.floor(Math.random() * 60).toString().padStart(2, '0')}</div>
+          </div>
+          
+          {/* The main circular display component */}
+          <div className="circular-display">
+            {/* Scan line animation */}
+            <div className="scan-line"></div>
+            
+            {/* Technical tick marks in circular pattern */}
+            <div className="tick-marks"></div>
+            
+            {/* Rotating circle */}
+            <div className="rotating-circle"></div>
+            
+            {/* Outer segmented border */}
+            <div className="outer-ring"></div>
+            
+            {/* Rotating segment for radar effect */}
+            <div className="rotating-segment"></div>
+            
+            {/* Tech text elements */}
+            <div className="tech-text tech-text-1">sys.initialize()</div>
+            <div className="tech-text tech-text-2">audio.stream.active</div>
+            
+            {/* Central circle with message */}
+            <div className="inner-circle">
+              <div className="center-dot"></div>
+              <div className="z-10 text-center w-[140px] text-white text-opacity-90 text-sm px-2 flex items-center justify-center h-full">
+                <div>
+                  {isProcessing ? (
+                    "Processing..."
+                  ) : (
+                    currentMessage || "JUANMA"
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
         
-        {/* End call button */}
+        {/* End call button - futuristic style */}
         <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-30">
-          <div className="bg-gray-100 bg-opacity-90 rounded-full flex items-center pl-3 pr-5 py-2 shadow-lg">
-            <div className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center mr-3">
-              <div className="w-6 h-6 rounded-full bg-gradient-to-b from-primary to-blue-700"></div>
+          <div className="bg-black bg-opacity-70 border border-primary/30 rounded-full flex items-center pl-2 pr-5 py-1.5 shadow-lg backdrop-blur-sm">
+            <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 relative overflow-hidden">
+              <div className="w-6 h-6 rounded-full bg-primary/20 border border-primary/60 flex items-center justify-center relative">
+                <span className="absolute inset-0 rounded-full bg-primary/10 animate-pulse"></span>
+              </div>
             </div>
-            <span className="text-black font-medium flex items-center">
-              End <X className="ml-1 w-4 h-4" />
+            <span className="text-white/90 font-light text-sm flex items-center tracking-wider">
+              END <X className="ml-1 w-3.5 h-3.5 text-primary/80" />
             </span>
           </div>
         </div>

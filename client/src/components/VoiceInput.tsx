@@ -96,8 +96,21 @@ export default function VoiceInput({
       <div className="flex flex-col items-center relative">
         {/* Futuristic voice button */}
         <div className="relative">
+          {/* Technical background */}
+          <div className="absolute -left-4 -right-4 -top-4 -bottom-4 rounded-lg border border-primary/20 bg-black/60 backdrop-blur-sm opacity-80 z-0"></div>
+          
+          {/* Status text */}
+          <div className="absolute -top-8 left-0 right-0 text-[10px] font-mono text-primary/70 flex justify-between">
+            <span>MIC.ACTIVE</span>
+            <span>{isProcessing ? "SYS.BUSY" : isRecording ? "REC.ON" : "READY"}</span>
+          </div>
+          
+          {/* Tech lines */}
+          <div className="absolute left-0 right-0 -top-2 h-px bg-primary/20"></div>
+          <div className="absolute left-0 right-0 -bottom-2 h-px bg-primary/20"></div>
+          
           {/* Scanning effect when recording */}
-          <div className={`absolute inset-0 rounded-full overflow-hidden ${isRecording ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}>
+          <div className={`absolute inset-0 rounded-full overflow-hidden ${isRecording ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 z-10`}>
             <div className="absolute top-0 left-0 right-0 h-full bg-gradient-to-b from-transparent via-primary/30 to-transparent animate-scan"></div>
           </div>
           
@@ -105,36 +118,55 @@ export default function VoiceInput({
           <button
             onClick={toggleRecording}
             disabled={isProcessing}
-            className={`w-12 h-12 rounded-full transition-all duration-300 relative overflow-hidden
+            className={`w-12 h-12 rounded-full transition-all duration-300 relative overflow-hidden z-20
                         ${isRecording 
-                          ? 'bg-gradient-to-r from-primary/90 to-primary/70 shadow-[0_0_15px_rgba(0,195,255,0.7)]' 
-                          : 'bg-gray-900 border border-primary/30 hover:border-primary/70'}`}
+                          ? 'bg-black border-2 border-primary/70 shadow-[0_0_15px_rgba(0,195,255,0.5)]' 
+                          : 'bg-black border border-primary/40 hover:border-primary/70'}`}
           >
+            <div className="absolute inset-0 rounded-full bg-gradient-radial from-primary/10 via-transparent to-transparent"></div>
+            
             {isProcessing ? (
-              <Loader2 className="h-5 w-5 text-white animate-spin" />
+              <Loader2 className="h-5 w-5 text-primary animate-spin relative z-30" />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
-                <Mic className={`h-5 w-5 text-primary ${isRecording ? 'opacity-0' : 'opacity-100'} transition-opacity`} />
-                <div className={`h-2 w-2 bg-primary rounded-full ${isRecording ? 'opacity-100 animate-pulse' : 'opacity-0'} transition-opacity`}></div>
+                <Mic className={`h-5 w-5 text-primary ${isRecording ? 'opacity-0' : 'opacity-100'} transition-opacity z-30`} />
+                <div className={`h-2 w-2 bg-primary rounded-full ${isRecording ? 'opacity-100 animate-pulse' : 'opacity-0'} transition-opacity z-30`}></div>
               </div>
             )}
+            
+            {/* Inner circle decoration */}
+            <div className="absolute inset-[3px] rounded-full border border-primary/30 z-20"></div>
           </button>
           
-          {/* Ripple effect */}
-          <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/30
-                          ${isRecording ? 'w-16 h-16 opacity-100' : 'w-12 h-12 opacity-0'} 
-                          transition-all duration-700`}></div>
+          {/* Ripple effects */}
           <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/20
                           ${isRecording ? 'w-20 h-20 opacity-100' : 'w-12 h-12 opacity-0'} 
-                          transition-all duration-1000 delay-100`}></div>
+                          transition-all duration-1000 z-10`}></div>
+          
+          <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/40
+                          ${isRecording ? 'w-16 h-16 opacity-100' : 'w-12 h-12 opacity-0'} 
+                          transition-all duration-700 z-10`}></div>
+          
+          {/* Technical markers */}
+          {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
+            <div 
+              key={angle} 
+              className={`absolute w-1 h-1 bg-primary/40 rounded-full transition-opacity duration-300 ${isRecording ? 'opacity-100' : 'opacity-60'}`}
+              style={{
+                left: `calc(50% + ${Math.cos(angle * Math.PI / 180) * 14}px)`,
+                top: `calc(50% + ${Math.sin(angle * Math.PI / 180) * 14}px)`,
+                transform: 'translate(-50%, -50%)'
+              }}
+            ></div>
+          ))}
         </div>
         
-        {/* Small status indicator */}
-        <div className="mt-2 text-xs text-primary/70">
-          {isProcessing ? "Processing..." : isRecording ? "Listening..." : ""}
-        </div>
-        
-        {/* CSS moved to index.css */}
+        {/* Transcription indicator (minimalist) */}
+        {isRecording && transcription && (
+          <div className="fixed bottom-24 right-10 max-w-xs bg-black/70 backdrop-blur-sm border border-primary/20 rounded px-3 py-1.5 text-xs text-white/80">
+            <p className="line-clamp-2">{transcription}</p>
+          </div>
+        )}
       </div>
     );
   }
