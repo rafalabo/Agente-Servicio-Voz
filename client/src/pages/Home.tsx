@@ -1,34 +1,17 @@
 import { useState, useRef, useEffect } from "react";
-import Header from "@/components/Header";
-import ConversationHistory from "@/components/ConversationHistory";
 import VoiceInput from "@/components/VoiceInput";
-import Footer from "@/components/Footer";
 import { Message } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { X } from "lucide-react";
 
 export default function Home() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "welcome",
-      type: "ai",
-      content: "Hello! I'm JuanMa, your AI assistant. Feel free to ask me anything by clicking the microphone button and speaking your request.",
-      timestamp: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
-  const conversationEndRef = useRef<HTMLDivElement>(null);
-  const { toast } = useToast();
   const [audioEnabled, setAudioEnabled] = useState(true);
+  const [currentMessage, setCurrentMessage] = useState<string>("");
+  const { toast } = useToast();
   
-  const scrollToBottom = () => {
-    conversationEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
   const handleTranscription = async (transcription: string) => {
     if (!transcription.trim()) {
       toast({
@@ -39,6 +22,9 @@ export default function Home() {
       return;
     }
 
+    // Display the current transcription
+    setCurrentMessage(transcription);
+    
     // Add user message
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -68,6 +54,9 @@ export default function Home() {
       };
       
       setMessages((prev) => [...prev, aiMessage]);
+      
+      // Display the AI response
+      setCurrentMessage(data.response);
     } catch (error) {
       console.error("Error sending message:", error);
       toast({
@@ -80,45 +69,88 @@ export default function Home() {
     }
   };
 
-  const toggleAudio = () => {
-    setAudioEnabled(!audioEnabled);
-    toast({
-      title: `Voice response ${!audioEnabled ? "enabled" : "disabled"}`,
-      description: `JuanMa will ${!audioEnabled ? "now" : "no longer"} respond with voice.`,
-    });
-  };
-
   return (
-    <div className="bg-background text-foreground flex flex-col min-h-screen">
-      <Header />
+    <div className="bg-black text-blue-50 flex flex-col min-h-screen overflow-hidden">
+      {/* Header - simplified to just a brand name */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-transparent px-6 py-4">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center space-x-2">
+            <div className="h-6 w-6 rounded-full bg-primary/80 glow-effect"></div>
+            <span className="text-primary tracking-wider font-light text-lg">JARVIS</span>
+          </div>
+          <div className="text-xs text-primary/80 flex items-center">
+            <span className="inline-block h-2 w-2 rounded-full bg-primary mr-2 animate-pulse"></span>
+            Online
+          </div>
+        </div>
+      </header>
       
-      <main className="flex-grow container mx-auto px-4 py-6 flex flex-col overflow-hidden relative">
-        {/* Background decorative elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
-          <div className="absolute top-20 right-1/4 w-64 h-64 bg-primary rounded-full filter blur-3xl"></div>
-          <div className="absolute bottom-20 left-1/4 w-80 h-80 bg-indigo-600 rounded-full filter blur-3xl"></div>
-        </div>
-
-        {/* Welcome message */}
-        <div className="text-center mb-8 mt-2 relative">
-          <h2 className="text-2xl font-semibold text-white mb-2">Welcome to JuanMa Assistant</h2>
-          <p className="text-muted-foreground max-w-lg mx-auto">
-            How can I help you today? Click the microphone button below to start speaking.
-          </p>
-        </div>
-
-        <ConversationHistory messages={messages} ref={conversationEndRef} />
+      <main className="flex-grow flex flex-col items-center justify-center relative">
+        {/* Dark background with grid-like pattern */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         
-        <VoiceInput 
-          onTranscription={handleTranscription} 
-          isProcessing={isProcessing} 
-        />
+        {/* Central orb */}
+        <div className="relative z-10 flex flex-col items-center">
+          {/* Outer rings */}
+          <div className="absolute w-[400px] h-[400px] rounded-full border border-primary/20 animate-pulse-slow"></div>
+          <div className="absolute w-[300px] h-[300px] rounded-full border border-primary/30"></div>
+          <div className="absolute w-[200px] h-[200px] rounded-full border border-primary/40"></div>
+          
+          {/* Horizontal scan lines */}
+          <div className="absolute left-[-200px] right-[-200px] flex flex-col space-y-2">
+            <div className="h-px bg-primary/30 w-full transform translate-y-[-100px]"></div>
+            <div className="h-px bg-primary/20 w-full transform translate-y-[-50px]"></div>
+            <div className="h-px bg-primary/40 w-full"></div>
+            <div className="h-px bg-primary/20 w-full transform translate-y-[50px]"></div>
+            <div className="h-px bg-primary/30 w-full transform translate-y-[100px]"></div>
+          </div>
+          
+          {/* Status labels */}
+          <div className="absolute right-[-160px] top-0 text-xs text-primary/70">
+            <div>SYS_STATUS: OPTIMAL</div>
+            <div className="mt-1">CONN: SECURE</div>
+          </div>
+          
+          {/* Animated dots */}
+          <div className="absolute left-[-150px] top-[30px]">
+            <span className="inline-block h-1 w-1 rounded-full bg-primary/80 animate-ping"></span>
+          </div>
+          <div className="absolute right-[-120px] bottom-[50px]">
+            <span className="inline-block h-1 w-1 rounded-full bg-primary/80 animate-ping delay-75"></span>
+          </div>
+          
+          {/* Central glowing orb */}
+          <div className="w-[150px] h-[150px] rounded-full bg-gradient-to-b from-primary/80 to-primary/40 flex items-center justify-center shadow-[0_0_60px_20px_rgba(0,195,255,0.3)] relative">
+            <div className="absolute inset-0 rounded-full bg-primary/20 animate-pulse"></div>
+            <div className="z-10 text-center max-w-[120px] overflow-hidden text-white text-opacity-90 text-sm">
+              {currentMessage || (isProcessing ? "Processing..." : "Voice assistant ready")}
+            </div>
+          </div>
+        </div>
+        
+        {/* End call button */}
+        <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-30">
+          <div className="bg-gray-100 bg-opacity-90 rounded-full flex items-center pl-3 pr-5 py-2 shadow-lg">
+            <div className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center mr-3">
+              <div className="w-6 h-6 rounded-full bg-gradient-to-b from-primary to-blue-700"></div>
+            </div>
+            <span className="text-black font-medium flex items-center">
+              End <X className="ml-1 w-4 h-4" />
+            </span>
+          </div>
+        </div>
+        
+        {/* Voice input - moved to a less visible position but still functional */}
+        <div className="fixed bottom-10 right-10 z-30">
+          <VoiceInput 
+            onTranscription={handleTranscription} 
+            isProcessing={isProcessing}
+            futuristicStyle={true}
+          />
+        </div>
       </main>
       
-      <Footer 
-        audioEnabled={audioEnabled}
-        onToggleAudio={toggleAudio}
-      />
+      {/* All CSS moved to index.css */}
     </div>
   );
 }
