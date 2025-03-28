@@ -161,18 +161,9 @@ export default function Home() {
           </div>
         </div>
         
-        {/* End call button - futuristic style */}
+        {/* Elevenlabs ConvAI Widget */}
         <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-30">
-          <div className="bg-black bg-opacity-70 border border-primary/30 rounded-full flex items-center pl-2 pr-5 py-1.5 shadow-lg backdrop-blur-sm">
-            <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 relative overflow-hidden">
-              <div className="w-6 h-6 rounded-full bg-primary/20 border border-primary/60 flex items-center justify-center relative">
-                <span className="absolute inset-0 rounded-full bg-primary/10 animate-pulse"></span>
-              </div>
-            </div>
-            <span className="text-white/90 font-light text-sm flex items-center tracking-wider">
-              END <X className="ml-1 w-3.5 h-3.5 text-primary/80" />
-            </span>
-          </div>
+          <elevenlabs-convai agent-id="EC59TNoxoavVIZeewZVH"></elevenlabs-convai>
         </div>
         
         {/* Voice input - moved to a less visible position but still functional */}
