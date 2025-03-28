@@ -214,10 +214,10 @@
 
 .tech-text {
   position: absolute;
-  font-family: monospace;
   font-size: 8px;
   color: rgba(0,195,255,0.7);
   text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .tech-text-1 {

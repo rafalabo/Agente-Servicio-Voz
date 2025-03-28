@@ -113,13 +113,13 @@ export default function Home() {
           </div>
           
           {/* Status labels */}
-          <div className="absolute right-[-180px] top-[-40px] text-xs text-primary/70 font-mono">
+          <div className="absolute right-[-180px] top-[-40px] text-xs text-primary/70 tracking-wider">
             <div>SYS_STATUS: OPTIMAL</div>
             <div className="mt-1">AUDIO_PROC: ACTIVE</div>
             <div className="mt-1">CONN: SECURE</div>
           </div>
           
-          <div className="absolute left-[-180px] bottom-[-30px] text-xs text-primary/70 font-mono">
+          <div className="absolute left-[-180px] bottom-[-30px] text-xs text-primary/70 tracking-wider">
             <div>SESSION: {Math.floor(Math.random() * 10000).toString().padStart(4, '0')}</div>
             <div className="mt-1">UPTIME: 00:{Math.floor(Math.random() * 60).toString().padStart(2, '0')}:{Math.floor(Math.random() * 60).toString().padStart(2, '0')}</div>
           </div>
