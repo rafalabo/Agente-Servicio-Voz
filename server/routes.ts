@@ -30,7 +30,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // In a real app, here you would call an external API or LLM service
       // For now, we'll create a simple response
-      const response = `I received your message: "${message}". This is a demo response from JuanMa.`;
+      const response = `I received your message: "${message}". This is a demo response from Thomas.`;
 
       // Determine if we should generate voice
       const generateAudio = req.query.audio !== "false";

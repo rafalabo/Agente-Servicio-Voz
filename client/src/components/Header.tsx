@@ -13,7 +13,7 @@ export default function Header() {
             <i className="fas fa-robot text-white"></i>
           </div>
           <div>
-            <h1 className="text-xl font-semibold text-white">JuanMa</h1>
+            <h1 className="text-xl font-semibold text-white">Thomas</h1>
             <p className="text-xs text-muted-foreground">AI Voice Assistant</p>
           </div>
         </div>

@@ -61,7 +61,7 @@ export default function Home() {
       console.error("Error sending message:", error);
       toast({
         title: "Error processing message",
-        description: "There was an error communicating with JuanMa. Please try again.",
+        description: "There was an error communicating with Thomas. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -76,7 +76,7 @@ export default function Home() {
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <div className="h-6 w-6 rounded-full bg-primary/80 glow-effect"></div>
-            <span className="text-primary tracking-wider font-light text-lg">JUANMA</span>
+            <span className="text-primary tracking-wider font-light text-lg">THOMAS</span>
           </div>
           <div className="text-xs text-primary/80 flex items-center">
             <span className="inline-block h-2 w-2 rounded-full bg-primary mr-2 animate-pulse"></span>
@@ -153,7 +153,7 @@ export default function Home() {
                   {isProcessing ? (
                     "Processing..."
                   ) : (
-                    currentMessage || "JUANMA"
+                    currentMessage || "THOMAS"
                   )}
                 </div>
               </div>
