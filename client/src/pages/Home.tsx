@@ -161,10 +161,7 @@ export default function Home() {
           </div>
         </div>
         
-        {/* Elevenlabs ConvAI Widget */}
-        <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-30">
-          <elevenlabs-convai agent-id="EC59TNoxoavVIZeewZVH"></elevenlabs-convai>
-        </div>
+        {/* Elevenlabs ConvAI Widget is now added directly to the index.html */}
         
         {/* Voice input - moved to a less visible position but still functional */}
         <div className="fixed bottom-10 right-10 z-30">
