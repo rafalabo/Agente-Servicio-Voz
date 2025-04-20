@@ -27,8 +27,37 @@
   background-color: #9AC8D6;
 }
 
+.primaryButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.listening {
+  background-color: #FF6B6B;
+}
+
+.listening:hover {
+  background-color: #FF5252;
+}
+
+.processing {
+  background-color: #AAAAAA;
+}
+
 .micIcon {
   margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loadingIndicator {
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
 }
 
 .additionalControls {
@@ -48,4 +77,9 @@
   height: 20px;
   border-radius: 50%;
   border: 1px solid #AAAAAA;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

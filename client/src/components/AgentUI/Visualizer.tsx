@@ -1,10 +1,16 @@
 import React from 'react';
 import styles from './Visualizer.module.css';
 
-const Visualizer: React.FC = () => {
+interface VisualizerProps {
+  message: string;
+  isProcessing: boolean;
+  isListening: boolean;
+}
+
+const Visualizer: React.FC<VisualizerProps> = ({ message, isProcessing, isListening }) => {
   return (
     <div className={styles.visualizer}>
-      <div className={styles.circleContainer}>
+      <div className={`${styles.circleContainer} ${isListening ? styles.listening : ''} ${isProcessing ? styles.processing : ''}`}>
         <div className={styles.bubbleIcon}>
           {/* SVG chat bubble icon */}
           <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,7 +24,11 @@ const Visualizer: React.FC = () => {
           </svg>
         </div>
       </div>
-      <p className={styles.helpText}>¿En qué puedo ayudarte hoy?</p>
+      <p className={styles.helpText}>
+        {isProcessing ? 'Procesando...' : 
+         isListening ? 'Escuchando...' : 
+         message ? message : '¿En qué puedo ayudarte hoy?'}
+      </p>
     </div>
   );
 };
