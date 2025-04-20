@@ -5,7 +5,7 @@ export default {
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     fontFamily: {
-      sans: ['IBM Plex Sans', 'sans-serif'],
+      sans: ['Lato', 'sans-serif'],
     },
     extend: {
       borderRadius: {

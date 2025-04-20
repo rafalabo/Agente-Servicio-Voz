@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  height: 10vh;
+  box-sizing: border-box;
+}
+
+.agentName {
+  font-size: 18px;
+  font-weight: 400; /* Regular */
+  color: #333333;
+}
+
+.statusIndicator {
+  display: flex;
+  align-items: center;
+}
+
+.statusDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ADD8E6;
+  margin-right: 8px;
+}
+
+.statusIndicator span {
+  font-size: 12px;
+  font-weight: 300; /* Light */
+  color: #333333;
+}

@@ -1,0 +1,48 @@
+Genera componentes funcionales de React (usando JSX) y CSS (puedes usar CSS Modules o Styled Components) para crear una interfaz de usuario de agente conversacional con las siguientes especificaciones. El objetivo es un diseño minimalista, limpio, moderno y amigable para servicio al cliente.
+
+**Paleta y Fuentes:**
+*   Fondo: `#F5F5F5`
+*   Acento: `#ADD8E6`
+*   Texto Principal: `#333333`
+*   Texto Secundario: `#AAAAAA`
+*   Fuente: 'Lato' (Regular 400, Light 300)
+
+**Estructura de Componentes:**
+1.  Componente principal `AgentUI`.
+2.  Componente `Header`: Muestra el nombre del agente y el estado.
+3.  Componente `Visualizer`: Muestra el círculo central y el texto de estado.
+4.  Componente `Controls`: Muestra el botón principal y otros indicadores/iconos.
+
+**Detalles de Componentes y Estilos:**
+
+1.  **`AgentUI` (Contenedor Principal):**
+    *   Establece el fondo `#F5F5F5`.
+    *   Usa flexbox en columna para organizar `Header`, `Visualizer`, `Controls`.
+    *   Define la fuente global 'Lato'.
+
+2.  **`Header` Component:**
+    *   Ocupa aprox. 10% de la altura.
+    *   Usa flexbox (space-between, align-items: center).
+    *   Elemento izquierdo: `<span>` o `p` "Sofía | Asistente" (Lato Regular, 18px, #333333).
+    *   Elemento derecho: Un `div` con un círculo (12px, bg: #ADD8E6) y el texto "Disponible" (Lato Light, 12px, #333333).
+
+3.  **`Visualizer` Component:**
+    *   Ocupa aprox. 60% de la altura. Centrado vertical y horizontalmente (flexbox).
+    *   `div` principal estilizado como círculo (150px diámetro, borde 2px solid #ADD8E6).
+    *   Dentro del círculo: Un icono de burbuja de chat (SVG, componente de icono, o placeholder) de color #ADD8E6, tamaño ~50px, centrado. *(Implementando Opción A)*.
+    *   Texto debajo del círculo: `p` "¿En qué puedo ayudarte hoy?" (Lato Light, 14px, #AAAAAA), centrado.
+
+4.  **`Controls` Component:**
+    *   Ocupa aprox. 30% de la altura. Centrado/distribuido con flexbox.
+    *   Botón principal (`<button>`):
+        *   Estilo: bordes redondeados 8px, fondo #ADD8E6, texto blanco (Lato Regular, 16px).
+        *   Contenido: Icono de micrófono (placeholder/componente) + "Hablar ahora".
+    *   (Opcional) Elemento Avatar: `div` circular (30px, borde #ADD8E6).
+    *   (Opcional) Elemento Micrófono: `div` circular (20px, borde #AAAAAA).
+
+**Estilos:**
+*   Usa CSS Modules (generar archivos `.module.css`) o Styled Components (`styled.div`, etc.).
+*   Aplica padding/margin para espaciado adecuado.
+*   Asegura `box-sizing: border-box;`.
+
+Genera el código JSX para cada componente y el CSS correspondiente.
