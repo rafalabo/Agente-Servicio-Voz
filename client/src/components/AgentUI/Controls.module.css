@@ -7,76 +7,55 @@
   box-sizing: border-box;
 }
 
-.primaryButton {
+.microphoneControl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.microphoneCircle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #ADD8E6;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ADD8E6;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
 }
 
-.primaryButton:hover {
-  background-color: #9AC8D6;
-}
-
-.primaryButton:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+.microphoneCircle:hover {
+  box-shadow: 0 0 15px rgba(173, 216, 230, 0.5);
+  transform: scale(1.05);
 }
 
 .listening {
-  background-color: #FF6B6B;
-}
-
-.listening:hover {
-  background-color: #FF5252;
+  border-color: #FF6B6B;
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+  animation: pulse 1.5s infinite ease-in-out;
 }
 
 .processing {
-  background-color: #AAAAAA;
-}
-
-.micIcon {
-  margin-right: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-color: #AAAAAA;
+  box-shadow: 0 0 10px rgba(170, 170, 170, 0.3);
 }
 
 .loadingIndicator {
-  width: 16px;
-  height: 16px;
-  border: 2px solid white;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ADD8E6;
   border-radius: 50%;
   border-top-color: transparent;
   animation: spin 1s linear infinite;
 }
 
-.additionalControls {
-  display: flex;
-  gap: 15px;
-}
-
-.avatarCircle {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid #ADD8E6;
-}
-
-.microphoneCircle {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid #AAAAAA;
+.microphoneText {
+  font-size: 12px;
+  color: #666666;
+  margin: 0;
+  text-align: center;
 }
 
 @keyframes spin {

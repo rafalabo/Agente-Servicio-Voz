@@ -8,14 +8,15 @@
 }
 
 .circleContainer {
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
+  background-color: rgba(173, 216, 230, 0.1);
   border: 2px solid #ADD8E6;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   transition: all 0.3s ease;
 }
 
@@ -30,11 +31,10 @@
   box-shadow: 0 0 15px rgba(173, 216, 230, 0.3);
 }
 
-.bubbleIcon {
-  color: #ADD8E6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.beeIcon {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
 }
 
 .helpText {

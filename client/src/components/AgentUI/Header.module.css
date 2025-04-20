@@ -5,29 +5,37 @@
   padding: 15px 20px;
   height: 10vh;
   box-sizing: border-box;
+  position: relative;
+}
+
+.logoContainer {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.logo {
+  height: 30px;
+  width: auto;
 }
 
 .agentName {
-  font-size: 18px;
-  font-weight: 400; /* Regular */
+  font-size: 22px;
+  font-weight: 500; /* Medium */
   color: #333333;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.statusIndicator {
-  display: flex;
-  align-items: center;
-}
-
-.statusDot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: #ADD8E6;
-  margin-right: 8px;
-}
-
-.statusIndicator span {
+.poweredBy {
   font-size: 12px;
   font-weight: 300; /* Light */
-  color: #333333;
+  color: #666666;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
