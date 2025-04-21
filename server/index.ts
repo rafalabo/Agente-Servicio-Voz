@@ -1,6 +1,6 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+//import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
 app.use(express.json());
@@ -51,13 +51,31 @@ app.use((req, res, next) => {
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
   if (process.env.NODE_ENV === "development") { // Usar process.env directamente es más seguro aquí
-    // Importa setupVite solo cuando sea necesario
-    const { setupVite } = await import("./vite.dev.js"); // Nota la extensión .js (porque se ejecutará después de compilar)
-    await setupVite(app, server); // 'server' debe estar disponible aquí
+    console.log("Setting up Vite for development...");
+    try {
+      const { setupVite } = await import("./vite.dev.js");
+      await setupVite(app, server);
+      // Nota: setupVite podría ya iniciar el listen en desarrollo, revisa su código.
+      // Si no, necesitarías un app.listen aquí también para dev.
+    } catch (e) {
+       console.error("Failed to setup Vite:", e);
+       process.exit(1);
+    }
   } else {
-    // serveStatic ya no necesita importar 'vite'
-    const { serveStatic } = await import("./vite.js"); // Importa desde el vite.ts limpio (compilado a .js)
-    serveStatic(app);
+    console.log("Setting up static server for production...");
+    try {
+      const { serveStatic, log } = await import("./vite.js");
+      serveStatic(app);
+
+      // Mover app.listen aquí asegura que 'log' está definido
+      const port = process.env.PORT || 5000;
+      app.listen(port, '0.0.0.0', () => {
+        log(`Server listening on port ${port}`); // Usa el 'log' importado
+      });
+    } catch(e) {
+       console.error("Failed to setup static server or listen:", e);
+       process.exit(1); // Salir si la configuración de producción falla
+    }
   }
 
   // ALWAYS serve the app on port 5000

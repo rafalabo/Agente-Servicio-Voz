@@ -14,7 +14,7 @@ const currentDir = path.dirname(__filename); // Directorio actual del archivo vi
 // Nota: Esto asume que el archivo compilado vite.js estará en la misma carpeta que index.js (dist)
 const parentDirOfCompiledCode = path.dirname(__filename);
 
-const viteLogger = createLogger();
+//const viteLogger = createLogger();
 
 // --- Funciones Auxiliares ---
 export function log(message: string, source = "express") {

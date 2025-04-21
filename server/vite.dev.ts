@@ -6,6 +6,11 @@ import { fileURLToPath } from "url";
 import { type Server } from "http";
 import viteConfig from "../vite.config"; // Asume que viteConfig está en la raíz del proyecto
 import { nanoid } from "nanoid";
+//
+const __filename = fileURLToPath(import.meta.url);
+const currentDir = path.dirname(__filename); // Necesario para clientTemplatePath
+const viteLogger = createLogger(); // Definir el logger aquí
+
 // --- Configuración de Vite para Desarrollo ---
 export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
