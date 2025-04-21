@@ -44,7 +44,8 @@ EXPOSE 5000
 # Define el comando para iniciar la aplicación en producción
 # Usamos el script 'start' de tu package.json, que ya incluye cross-env NODE_ENV=production
 # npm necesita saber dónde está el código, por eso se copia package.json primero
-CMD ["npm", "start"]
+ENV NODE_ENV=production
+CMD ["node", "dist/index.js"]
 
 # --- Notas ---
 # 1. Si usas una versión de Node diferente a 18, cambia 'node:18-alpine' en ambas etapas FROM.
