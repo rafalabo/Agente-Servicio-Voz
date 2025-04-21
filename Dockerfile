@@ -41,10 +41,11 @@ COPY --from=builder /app/dist ./dist
 # Code Engine mapeará su puerto público a este puerto interno.
 EXPOSE 5000
 
+ENV NODE_ENV=production
 # Define el comando para iniciar la aplicación en producción
 # Usamos el script 'start' de tu package.json, que ya incluye cross-env NODE_ENV=production
 # npm necesita saber dónde está el código, por eso se copia package.json primero
-ENV NODE_ENV=production
+
 CMD ["node", "dist/index.js"]
 
 # --- Notas ---
