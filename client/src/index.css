@@ -29,3 +29,24 @@
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
 }
+
+/* Contenedor que rodea al widget */
+.widget-container {
+  position: fixed;
+  bottom: 20px;  /* Ajusta la distancia desde la parte inferior */
+  left: 48%;
+  transform: translateX(-50%);  /* Esto lo centra horizontalmente */
+  z-index: 9999;  /* Asegura que el widget esté por encima de otros elementos */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Opcional: Estilos adicionales para el widget */
+elevenlabs-convai {
+  display: block;
+  width: 300px;  /* Ajusta el ancho */
+  height: 200px; /* Ajusta el alto */
+  visibility: visible; /* Asegura que sea visible */
+  margin: 0;  /* Elimina márgenes que puedan interferir */
+}

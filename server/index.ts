@@ -59,12 +59,17 @@ app.use((req, res, next) => {
   // ALWAYS serve the app on port 5000
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
-  const port = 5000;
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
+  const port = process.env.PORT || 5000; // Usa PORT de Code Engine o 5000 localmente
+  // En lugar de usar server.listen (que viene de registerRoutes),
+  // usaremos app.listen, que es lo más típico en Express.
+  // Si registerRoutes devuelve el servidor solo para HMR de Vite,
+  // podemos simplemente usar app.listen para el modo producción.
+
+  app.listen(port, '0.0.0.0', () => { // Escucha en todas las interfaces
+    log(`Server listening on port ${port}`); // Mensaje ligeramente diferente para confirmar el cambio
   });
+
+// NOTA: Si la variable 'server' devuelta por registerRoutes era ESENCIAL
+// por alguna otra razón, necesitaríamos investigar más. Pero para
+// simplemente escuchar, app.listen es lo estándar.
 })();

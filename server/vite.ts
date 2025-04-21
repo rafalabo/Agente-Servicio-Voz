@@ -1,16 +1,23 @@
 import express, { type Express } from "express";
 import fs from "fs";
-import path, { dirname } from "path";
+import path, { dirname } from "path"; // 'dirname' importado aquí si se usa directamente
 import { fileURLToPath } from "url";
 import { createServer as createViteServer, createLogger } from "vite";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 import { type Server } from "http";
-import viteConfig from "../vite.config";
+import viteConfig from "../vite.config"; // Asume que viteConfig está en la raíz del proyecto
 import { nanoid } from "nanoid";
+
+// --- Definiciones Globales para este Módulo ---
+const __filename = fileURLToPath(import.meta.url);
+// Usamos path.dirname para asegurar consistencia
+const currentDir = path.dirname(__filename); // Directorio actual del archivo vite.ts (dentro de server)
+// parentDirOfCompiledCode será 'dist' cuando se ejecute el código compilado (desde dist/index.js -> dist/vite.js)
+// Nota: Esto asume que el archivo compilado vite.js estará en la misma carpeta que index.js (dist)
+const parentDirOfCompiledCode = path.dirname(__filename);
 
 const viteLogger = createLogger();
 
+// --- Funciones Auxiliares ---
 export function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {
     hour: "numeric",
@@ -22,6 +29,7 @@ export function log(message: string, source = "express") {
   console.log(`${formattedTime} [${source}] ${message}`);
 }
 
+// --- Configuración de Vite para Desarrollo ---
 export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
     middlewareMode: true,
@@ -48,15 +56,17 @@ export async function setupVite(app: Express, server: Server) {
     const url = req.originalUrl;
 
     try {
-      const clientTemplate = path.resolve(
-        __dirname,
-        "..",
-        "client",
-        "index.html",
+      // Ruta al index.html original en la carpeta 'client'
+      // path.resolve(currentDir, "..", "client", "index.html") -> server/../client/index.html
+      const clientTemplatePath = path.resolve(
+        currentDir, // Directorio del archivo vite.ts (en server)
+        "..",       // Sube un nivel (a la raíz del proyecto)
+        "client",   // Entra a la carpeta client
+        "index.html"
       );
 
-      // always reload the index.html file from disk incase it changes
-      let template = await fs.promises.readFile(clientTemplate, "utf-8");
+      let template = await fs.promises.readFile(clientTemplatePath, "utf-8");
+      // Añade un query param para evitar caché HMR?
       template = template.replace(
         `src="/src/main.tsx"`,
         `src="/src/main.tsx?v=${nanoid()}"`,
@@ -70,19 +80,25 @@ export async function setupVite(app: Express, server: Server) {
   });
 }
 
+// --- Servir Archivos Estáticos para Producción ---
 export function serveStatic(app: Express) {
-  const distPath = path.resolve(__dirname, "public");
+  // Construimos la ruta a la carpeta 'public' DENTRO de 'dist'
+  // parentDirOfCompiledCode apunta a 'dist'
+  const publicFolderPath = path.join(parentDirOfCompiledCode, 'public');
 
-  if (!fs.existsSync(distPath)) {
+  // Comprobamos si existe el index.html dentro de 'dist/public'
+  const indexPath = path.join(publicFolderPath, 'index.html');
+  if (!fs.existsSync(indexPath)) {
     throw new Error(
-      `Could not find the build directory: ${distPath}, make sure to build the client first`,
+      `Could not find index.html in the public build directory: ${indexPath}. Make sure 'vite build' outputs assets to 'dist/public'.`
     );
   }
 
-  app.use(express.static(distPath));
+  // Sirve archivos estáticos DESDE 'dist/public'
+  app.use(express.static(publicFolderPath));
 
-  // fall through to index.html if the file doesn't exist
-  app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+  // Ruta fallback para servir 'dist/public/index.html'
+  app.get('*', (_req, res) => {
+    res.sendFile(indexPath);
   });
 }
